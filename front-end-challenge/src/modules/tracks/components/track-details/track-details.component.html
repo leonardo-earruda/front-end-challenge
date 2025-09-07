@@ -1,1 +1,47 @@
-<p>track-details works!</p>
+@if (trackData && trackData.length > 0) { @for (track of trackData; track track)
+{
+<h2>Detalhes da Track</h2>
+<div>
+  <h3>Titulo da faixa:{{ track.name }}</h3>
+  <span>Artistas:</span>
+  @for (artist of track.artists; track artist) {
+  <p>{{ artist.name }}</p>
+  }
+  <p><strong>Álbum:</strong> {{ track.album.name }}</p>
+  <p>
+    <strong>Duração:</strong>
+    {{ track.duration_ms | msToMinSec }}
+  </p>
+  <p><strong>ISRC:</strong> {{ track.external_ids.isrc }}</p>
+  <img
+    [src]="track.album.images[0].url"
+    [alt]="track.album.name"
+    style="max-width: 300px"
+  />
+</div>
+<p>
+  <strong>Disponível no Brasil?:</strong>
+  {{ track.album.available_markets.includes("BR") | yesNo }}
+</p>
+
+<p>
+  <strong>Ouça no spotify:</strong>
+  <a [href]="track.external_urls.spotify" target="_blank">
+    {{ track.external_urls.spotify }}
+  </a>
+</p>
+
+<p></p>
+<audio controls>
+  <source [src]="track.preview_url" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+<p>
+  <strong>Data de lançamento:</strong>
+  {{ track.album.release_date | date : "dd/MM/yyyy" }}
+</p>
+
+} } @else {
+<p>Nenhuma track encontrada ou dados não disponíveis.</p>
+}

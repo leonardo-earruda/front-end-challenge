@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { SpotifyService } from '../../services/spotify.service';
+import { TracksService } from '../../services/tracks.service';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-track-card',
@@ -8,7 +10,8 @@ import { SpotifyService } from '../../services/spotify.service';
   styleUrl: './track-card.component.scss',
 })
 export class TrackCardComponent {
-  spotifyService = inject(SpotifyService);
+  spotifyService = inject(TracksService);
+  router = inject(Router);
 
   isrcList = [
     'US7VG1846811',
@@ -23,9 +26,19 @@ export class TrackCardComponent {
     'QZNJX2078148',
   ];
 
-  // onIsrcClick(isrc: string) {
-  //   this.spotifyService.getTrack(isrc).subscribe((track) => {
-  //     console.log(track);
-  //   });
-  // }
+  onIsrcClick(isrc: string) {
+    this.spotifyService
+      .getTrackByISRC(isrc)
+      .pipe(
+        tap((track: any) => {
+          console.log(track);
+          track.length === 0
+            ? alert('Track not available')
+            : this.router.navigate(['/tracks/details', isrc], {
+                state: { track: track },
+              });
+        })
+      )
+      .subscribe();
+  }
 }
