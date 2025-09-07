@@ -1,47 +1,117 @@
-@if (trackData && trackData.length > 0) { @for (track of trackData; track track)
-{
-<h2>Detalhes da Track</h2>
-<div>
-  <h3>Titulo da faixa:{{ track.name }}</h3>
-  <span>Artistas:</span>
-  @for (artist of track.artists; track artist) {
-  <p>{{ artist.name }}</p>
-  }
-  <p><strong>Álbum:</strong> {{ track.album.name }}</p>
-  <p>
-    <strong>Duração:</strong>
-    {{ track.duration_ms | msToMinSec }}
-  </p>
-  <p><strong>ISRC:</strong> {{ track.external_ids.isrc }}</p>
-  <img
-    [src]="track.album.images[0].url"
-    [alt]="track.album.name"
-    style="max-width: 300px"
-  />
+<div class="theme page-bg">
+  <div class="container-fluid">
+    <div class="mx-auto layout-max">
+      <div class="d-flex align-items-center justify-content-between mb-8 animate-fade-in">
+        <h3 class="title-primary">Faixas</h3>
+        <a class="link-back text-decoration-none" [routerLink]="['/tracks']">← Voltar</a>
+      </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+      @for (track of (tracks | async); track track; let i = $index) {
+      <div class="col animate-fade-in-up" [style.animation-delay]="(i * 0.1) + 's'">
+        <mat-card
+          class="card-blue rounded-4 overflow-hidden h-100"
+        >
+          <img
+            [src]="track.album.images[0].url"
+            [alt]="track.album.name"
+            class="w-100 object-fit-cover track-image"
+          />
+
+          <mat-card-content class="p-4 card-content">
+            <div class="d-flex align-items-start justify-content-between gap-2">
+              <h5 class="title-secondary mb-3 line-clamp-2 flex-grow-1">
+                {{ track.name }}
+              </h5>
+              <span class="badge badge-default font-monospace">
+                ISRC {{ track.external_ids.isrc }}
+              </span>
+            </div>
+
+            <div class="text-secondary small mb-3 text-truncate">
+              {{ track.album.name }}
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              @for (artist of track.artists; track artist; let j = $index) {
+              <span class="badge badge-default rounded-pill px-2 py-1 animate-fade-in" [style.animation-delay]="(j * 0.05 + 0.2) + 's'">
+                {{ artist.name }}
+              </span>
+              }
+            </div>
+
+            <div class="text-secondary small mb-2 d-flex align-items-center gap-2">
+              <mat-icon fontIcon="schedule" class="icon-16"></mat-icon>
+              <span>Duração: {{ track.duration_ms | msToMinSec }}</span>
+            </div>
+
+            <div class="mb-3">
+              <span
+                class="badge px-2 py-1 d-inline-flex align-items-center gap-2 availability-badge"
+                [ngClass]="
+                  track.album.available_markets.includes('BR')
+                    ? 'bg-success'
+                    : 'bg-danger'
+                "
+              >
+                <mat-icon
+                  class="icon-16"
+                  fontIcon="{{
+                    track.album.available_markets.includes('BR')
+                      ? 'check_circle'
+                      : 'cancel'
+                  }}"
+                >
+                </mat-icon>
+                <span>{{
+                  track.album.available_markets.includes("BR")
+                    ? "Disponível no Brasil"
+                    : "Indisponível no Brasil"
+                }}</span>
+              </span>
+            </div>
+
+            <div class="mt-2">
+              @if (track.preview_url) {
+              <audio
+                class="w-100"
+                [src]="track.preview_url"
+                controls
+                preload="none"
+              ></audio>
+              } @else {
+              <em class="text-secondary small">Sem prévia disponível</em>
+              }
+            </div>
+          </mat-card-content>
+
+          <mat-divider class="opacity-25"></mat-divider>
+
+          <mat-card-actions
+            class="actions-slot d-flex align-items-center justify-content-center p-3 pt-0"
+          >
+            <a
+              mat-stroked-button
+              color="primary"
+              class="d-inline-flex align-items-center justify-content-center gap-2"
+              [href]="track.external_urls.spotify"
+              target="_blank"
+              rel="noopener"
+            >
+              <mat-icon fontIcon="open_in_new"></mat-icon>
+              <span>Abrir no Spotify</span>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      } @empty {
+      <div class="col">
+        <mat-card class="card-blue rounded-4 p-4 text-center">
+          <span class="text-secondary">Nenhuma track encontrada.</span>
+        </mat-card>
+      </div>
+      }
+    </div>
+    </div>
+  </div>
 </div>
-<p>
-  <strong>Disponível no Brasil?:</strong>
-  {{ track.album.available_markets.includes("BR") | yesNo }}
-</p>
-
-<p>
-  <strong>Ouça no spotify:</strong>
-  <a [href]="track.external_urls.spotify" target="_blank">
-    {{ track.external_urls.spotify }}
-  </a>
-</p>
-
-<p></p>
-<audio controls>
-  <source [src]="track.preview_url" type="audio/mpeg" />
-  Your browser does not support the audio element.
-</audio>
-
-<p>
-  <strong>Data de lançamento:</strong>
-  {{ track.album.release_date | date : "dd/MM/yyyy" }}
-</p>
-
-} } @else {
-<p>Nenhuma track encontrada ou dados não disponíveis.</p>
-}

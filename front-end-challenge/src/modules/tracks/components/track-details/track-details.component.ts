@@ -1,22 +1,44 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { YesNoPipe } from '../../../shared/pipes/yes-no.pipe';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { MsToMinSecPipe } from '../../../shared/pipes/ms-to-min-sec.pipe';
 import { Track } from '../../dtos/track.dto';
+import { TracksService } from '../../services/tracks.service';
 
 @Component({
   selector: 'app-track-details',
-  imports: [CommonModule, YesNoPipe, MsToMinSecPipe],
+  imports: [
+    CommonModule,
+    MsToMinSecPipe,
+    AsyncPipe,
+    MatCardModule,
+    MatDividerModule,
+    MatIconModule,
+    RouterModule,
+  ],
   templateUrl: './track-details.component.html',
   styleUrl: './track-details.component.scss',
 })
 export class TrackDetailsComponent implements OnInit {
   activatedRoute = inject(ActivatedRoute);
-  router = inject(Router);
-  trackData: Track[] = [];
+  tracks!: Observable<Track[]>;
+  tracksService = inject(TracksService);
 
   ngOnInit() {
-    this.trackData = history.state.track;
+    this.getSource();
+  }
+
+  private getSource() {
+    history.state.track
+      ? (this.tracks = of(history.state.track))
+      : this.getTracks();
+  }
+
+  getTracks() {
+    this.tracks = this.tracksService.getAllTracks();
   }
 }

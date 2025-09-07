@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
-import { urls } from '../../../consts/base-url';
+import { urls } from '../../shared/consts/base-url';
 import { isrcs } from '../data/tracks';
 import { Track } from '../dtos/track.dto';
 import { mapTrackItemToLite } from '../utils/mapTrack';

@@ -1,4 +1,20 @@
-<app-track-card></app-track-card>
-
-Visualizar todos: <a [routerLink]="['/tracks/all']">aqui</a> 
-
+<div class="theme page-bg">
+  <div class="container-fluid">
+    <div class="mx-auto layout-max">
+      <h3 class="title-primary mb-8 animate-fade-in">ISRCs</h3>
+      <div class="row g-4">
+        @for (isrc of isrcList; track isrc; let i = $index) {
+          <div class="col-12 col-md-6 animate-fade-in-up" [style.animation-delay]="(i * 0.1) + 's'">
+            <mat-card 
+              class="card-surface rounded-4 overflow-hidden h-100 cursor-pointer"
+              (click)="onIsrcClick(isrc)">
+              <mat-card-content class="p-6 d-flex align-items-center justify-content-center card-content">
+                <h5 class="title-secondary text-center">{{ isrc }}</h5>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
