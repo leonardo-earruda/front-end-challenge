@@ -4,6 +4,6 @@ import { TrackDetailsComponent } from './components/track-details/track-details.
 
 export const tracksRoutes: Routes = [
   { path: '', component: TracksComponent },
-  { path: 'details/:id?', component: TrackDetailsComponent },
   { path: 'details/all', component: TrackDetailsComponent },
+  { path: 'details/:id?', component: TrackDetailsComponent },
 ];

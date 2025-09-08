@@ -1,0 +1,34 @@
+<div class="modal fade show d-block" tabindex="-1" role="dialog" *ngIf="isOpen()">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content card-surface rounded-4 shadow-lg" [ngClass]="state()?.type">
+      <div class="modal-header border-0 pb-0 align-items-start">
+        <div class="d-flex align-items-center gap-3">
+          <div class="icon-wrap d-inline-flex justify-content-center align-items-center" [ngClass]="state()?.type">
+            <span class="material-icons icon-32">{{
+              state()?.type === 'success' ? 'check_circle' :
+              state()?.type === 'error' ? 'error' :
+              state()?.type === 'warning' ? 'warning' : 'info'
+            }}</span>
+          </div>
+          <h5 class="modal-title title-secondary mb-0">{{ state()?.title }}</h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="onCloseClick()"></button>
+      </div>
+      <div class="modal-body text-secondary pt-3">
+        {{ state()?.message }}
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button
+          *ngFor="let action of state()?.actions"
+          type="button"
+          class=" btn modal-btn"
+          (click)="onActionClick(action)">
+          <span *ngIf="action.icon" class="material-icons me-2 icon-16">{{ action.icon }}</span>
+          {{ action.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

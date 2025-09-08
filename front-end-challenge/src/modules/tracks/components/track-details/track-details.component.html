@@ -47,7 +47,7 @@
 
             <div class="mb-3">
               <span
-                class="badge px-2 py-1 d-inline-flex align-items-center gap-2 availability-badge"
+                class="badge py-1 ps-0 pe-1 d-inline-flex align-items-center gap-2 availability-badge"
                 [ngClass]="
                   track.album.available_markets.includes('BR')
                     ? 'bg-success'
@@ -72,16 +72,12 @@
             </div>
 
             <div class="mt-2">
-              @if (track.preview_url) {
               <audio
                 class="w-100"
                 [src]="track.preview_url"
                 controls
                 preload="none"
               ></audio>
-              } @else {
-              <em class="text-secondary small">Sem prévia disponível</em>
-              }
             </div>
           </mat-card-content>
 
