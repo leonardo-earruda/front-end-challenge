@@ -85,6 +85,11 @@ Aplicação web construída em Angular (LTS) que consulta a API do Spotify para 
 - **Cypress 15** para E2E, **Jasmine/Karma** para unitários
 - **TypeScript 5.6**
 
+### Requisitos e Compatibilidade
+
+- **Node.js**: recomendado 21.6
+- **Compatibilidade**: alinhado com **Angular 19** usado no projeto
+
 ### Como executar
 
 1. Instale dependências:

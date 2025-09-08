@@ -1,7 +1,7 @@
-@import './modules/shared/design-tokens/colors.scss';
-@import './modules/shared/design-tokens/spacing.scss';
-@import './modules/shared/design-tokens/typography.scss';
-@import './modules/shared/design-tokens/utilities.scss';
+@use './modules/shared/design-tokens/colors.scss';
+@use './modules/shared/design-tokens/spacing.scss';
+@use './modules/shared/design-tokens/typography.scss';
+@use './modules/shared/design-tokens/utilities.scss';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

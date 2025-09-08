@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { MsToMinSecPipe } from '../../../shared/pipes/ms-to-min-sec.pipe';
 import { Track } from '../../dtos/track.dto';
 import { TracksService } from '../../services/tracks.service';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'app-track-details',
@@ -19,6 +20,7 @@ import { TracksService } from '../../services/tracks.service';
     MatDividerModule,
     MatIconModule,
     RouterModule,
+    ModalComponent,
   ],
   templateUrl: './track-details.component.html',
   styleUrl: './track-details.component.scss',
