@@ -1,0 +1,22 @@
+{
+  "tracks": {
+    "items": [
+      {
+        "name": "AAA",
+        "artists": [{ "name": "Artist BR" }],
+        "album": {
+          "name": "Album BR",
+          "images": [{ "url": "https://via.placeholder.com/100" }],
+          "available_markets": ["BR"],
+          "release_date": "2020-01-01"
+        },
+        "duration_ms": 120000,
+        "external_ids": { "isrc": "USAAA" },
+        "external_urls": { "spotify": "https://open.spotify.com/track/aaa" },
+        "preview_url": null
+      }
+    ]
+  }
+}
+
+

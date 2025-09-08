@@ -1,0 +1,22 @@
+{
+  "tracks": {
+    "items": [
+      {
+        "name": "BBB",
+        "artists": [{ "name": "Artist US" }],
+        "album": {
+          "name": "Album US",
+          "images": [{ "url": "https://via.placeholder.com/100" }],
+          "available_markets": ["US"],
+          "release_date": "2021-01-01"
+        },
+        "duration_ms": 180000,
+        "external_ids": { "isrc": "USBBB" },
+        "external_urls": { "spotify": "https://open.spotify.com/track/bbb" },
+        "preview_url": null
+      }
+    ]
+  }
+}
+
+

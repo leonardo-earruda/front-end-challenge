@@ -33,9 +33,9 @@ export class TrackDetailsComponent implements OnInit {
   }
 
   private getSource() {
-    history.state.track
-      ? (this.tracks = of(history.state.track))
-      : this.getTracks();
+    const state = history?.state as { track?: Track[] } | undefined;
+    const tracksFromState = state?.track;
+    this.tracks = tracksFromState ? of(tracksFromState) : this.tracksService.getAllTracks();
   }
 
   getTracks() {
